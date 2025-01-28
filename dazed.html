@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hover Effect</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background-image: url('bag.png');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-container {
+      position: relative;
+      display: inline-block;
+      overflow: hidden;
+    }
+
+    .image-container img {
+      transition: transform 0.3s ease-in-out;
+      width: 1500px; /* Make the image much larger */
+      height: auto; /* Maintain aspect ratio */
+    }
+
+    .image-container:hover img {
+      transform: scale(1.2); /* Enlarge further on hover */
+    }
+  </style>
+</head>
+<body>
+  <!-- Link to the second page -->
+  <div class="image-container">
+    <a href="girl.html"> <!-- Link to the new page -->
+      <img src="rhode.PNG" alt="Rhode Image">
+    </a>
+  </div>
+</body>
+</html>

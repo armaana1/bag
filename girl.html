@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Girl Page</title>
+  <style>
+    /* Fullscreen white background */
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      width: 100vw;
+      background-color: white; /* Set background color to white */
+      position: relative; /* For positioning other elements */
+      overflow: hidden; /* Prevent content from overflowing */
+    }
+
+    /* Set girl.png as the background image */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('girl.png'); /* Set girl.png as background */
+      background-size: cover; /* Cover the entire screen */
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 0; /* Set lower z-index to place it behind */
+    }
+
+    /* Fullscreen door image (above background but below lippy and exit images) */
+    .door-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;  /* Door image spans the full width of the viewport */
+      height: 100vh; /* Door image spans the full height of the viewport */
+      z-index: 1;  /* Set above the background but below lippy and exit images */
+    }
+
+    .door-container img {
+      width: 100%;  /* Make the door image take up full width */
+      height: 100%; /* Make the door image take up full height */
+      object-fit: cover;  /* Ensure the image covers the full screen without stretching */
+    }
+
+    /* Make lippy.png smaller and fit within a container */
+    .lippy-container {
+      position: absolute;
+      bottom: 20px; /* 20px from the bottom */
+      left: 20px; /* 20px from the left */
+      width: 250px; /* Smaller container size */
+      height: auto;
+      cursor: grab; /* Cursor changes to grab for draggable effect */
+      z-index: 10; /* Ensure lippy is above other content */
+    }
+
+    .lippy {
+      width: 100%; /* Make lippy.png fit the container */
+      height: auto; /* Maintain aspect ratio */
+    }
+
+    .pen-mark {
+      position: absolute;
+      width: 12px; /* Smaller size of the heart shape */
+      height: 12px; /* Smaller size of the heart shape */
+      background-color: red;
+      pointer-events: none; /* Ensures it doesn't interfere with dragging */
+      z-index: 10;
+      opacity: 0.7; /* Slightly reduced opacity */
+      transform: rotate(180deg); /* Rotate to adjust the heart's direction */
+    }
+
+    .pen-mark:before,
+    .pen-mark:after {
+      content: '';
+      position: absolute;
+      width: 12px; /* Smaller heart circle size */
+      height: 12px; /* Smaller heart circle size */
+      background-color: red;
+      border-radius: 50%;
+      top: 0;
+      left: 0;
+    }
+
+    .pen-mark:before {
+      left: 6px; /* Adjust for the smaller heart circle */
+    }
+
+    .pen-mark:after {
+      top: 6px; /* Adjust for the smaller heart circle */
+    }
+
+    /* Exit image (smaller, placed in the middle of the right side) */
+    .image-container {
+      position: absolute;
+      top: 50%;  /* Vertically center */
+      right: 0;
+      transform: translateY(-50%); /* Adjust to exactly center */
+      width: 150px;  /* Smaller width for exit image */
+      height: auto;
+      z-index: 5;  /* Set above the background but below the lippy image */
+    }
+
+    .image-container img {
+      width: 100%;  /* Exit image will take up the full width of the container */
+      height: auto; /* Maintain aspect ratio */
+      object-fit: cover;  /* Ensure the image covers the area */
+      cursor: pointer; /* Make the cursor a pointer to indicate it’s clickable */
+    }
+  </style>
+</head>
+<body>
+  <!-- Door image container (no link around it, just the image) -->
+  <div class="door-container">
+    <img src="door.png" alt="Door Image">
+  </div>
+
+  <!-- Lippy container with the lippy.png image -->
+  <div class="lippy-container" id="draggable">
+    <img src="lippy.png" alt="Lippy Image" class="lippy">
+  </div>
+
+  <script>
+    const lippyContainer = document.getElementById('draggable');
+    const body = document.querySelector('body');
+    const exitImageContainer = document.querySelector('.image-container');
+
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    // Function to create the red heart mark at the top-right corner of lippy's current position
+    function createHeartMark(x, y) {
+      const mark = document.createElement('div');
+      mark.className = 'pen-mark';
+      mark.style.left = `${x + lippyContainer.offsetWidth - 12}px`; // Smaller size adjustment
+      mark.style.top = `${y - 6}px`; // Smaller size adjustment
+      body.appendChild(mark);
+
+      // Remove the mark after a longer time (3 seconds)
+      setTimeout(() => {
+        mark.remove();
+      }, 3000); // Stay for 3000ms (3 seconds)
+    }
+
+    // Start dragging
+    lippyContainer.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      offsetX = e.clientX - lippyContainer.offsetLeft;
+      offsetY = e.clientY - lippyContainer.offsetTop;
+      lippyContainer.style.cursor = 'grabbing';
+
+      // Prevent default dragging behavior
+      e.preventDefault();
+    });
+
+    // Dragging movement
+    document.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        const x = e.clientX - offsetX;
+        const y = e.clientY - offsetY;
+
+        // Move the lippy container
+        lippyContainer.style.left = `${x}px`;
+        lippyContainer.style.top = `${y}px`;
+
+        // Create a heart mark at the top-right corner of the lippy container
+        createHeartMark(x, y);
+      }
+    });
+
+    // Stop dragging
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      lippyContainer.style.cursor = 'grab';
+    });
+
+    // Exit image wrapped in a link to go to party.html
+    exitImageContainer.addEventListener('click', () => {
+      window.location.href = 'party.html'; // Navigate to party.html
+    });
+  </script>
+
+  <!-- Exit image wrapped in a link, ensures it only goes to party.html when clicked -->
+  <div class="image-container">
+    <a href="party.html">
+      <img src="exit.png" alt="Exit Image">
+    </a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleepy Nighttime Image</title>
+    <style>
+        /* Ensure the image covers the entire webpage */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        #sleep-image {
+            width: 100%; /* Set image width to 100% of the viewport */
+            height: 100%; /* Set image height to 100% of the viewport */
+            object-fit: cover; /* Ensure the image covers the area without distortion */
+            position: relative;
+        }
+
+        /* Style for the star marks */
+        .star-mark {
+            position: absolute;
+            font-size: 40px; /* Adjust star size */
+            color: #FFDB58; /* Mustard yellow color */
+            pointer-events: none; /* Prevent marks from interfering with other interactions */
+            user-select: none; /* Prevent selection */
+            transition: opacity 0.5s; /* Add fading effect when disappearing */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Display sleep.png image on the screen -->
+<img src="sleep.png" alt="Sleep Image" id="sleep-image" />
+
+<!-- JavaScript to add star marks on mouse movement -->
+<script>
+    let lastPosition = { x: 0, y: 0 };
+    const minDistance = 50; // Minimum distance to move before generating a new star
+    const starDuration = 2000; // Duration each star stays (in ms)
+
+    document.body.addEventListener('mousemove', function(event) {
+        // Check if the cursor has moved enough distance from the last position
+        const distance = Math.sqrt(
+            Math.pow(event.pageX - lastPosition.x, 2) + Math.pow(event.pageY - lastPosition.y, 2)
+        );
+
+        if (distance > minDistance) {
+            // Create the star mark
+            const starMark = document.createElement('div');
+            starMark.classList.add('star-mark');
+            starMark.textContent = '★'; // Use star symbol
+
+            // Set the position of the star mark at the cursor
+            starMark.style.left = `${event.pageX}px`;
+            starMark.style.top = `${event.pageY}px`;
+
+            // Append the mark to the body
+            document.body.appendChild(starMark);
+
+            // Remove the mark after a longer time (starDuration)
+            setTimeout(() => {
+                starMark.style.opacity = 0; // Make it fade out
+                setTimeout(() => starMark.remove(), 500); // Fully remove after fading
+            }, starDuration);
+
+            // Update the last position
+            lastPosition = { x: event.pageX, y: event.pageY };
+        }
+    });
+</script>
+
+</body>
+</html>
+

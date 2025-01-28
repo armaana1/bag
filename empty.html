@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Click to Link</title>
+    <style>
+        /* Set up the background image to cover the entire webpage */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-image: url('empty.png'); /* Background image */
+            background-size: cover; /* Ensure it covers the entire screen */
+            background-position: center; /* Center the background */
+            background-repeat: no-repeat; /* Prevent background repetition */
+            position: relative; /* Needed for absolute positioning of key image */
+        }
+
+        /* Style for the key image, bigger and moved slightly to the right */
+        #key-image {
+            cursor: pointer; /* Make the image clickable */
+            width: 20%; /* Increase the size of the key image */
+            height: auto; /* Maintain aspect ratio */
+            position: absolute; /* Position the key image */
+            bottom: 0; /* Place it at the very bottom of the webpage */
+            left: 55%; /* Move the image slightly to the right */
+            transform: translateX(-50%); /* Adjust for exact center */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Key image that will act as a clickable link -->
+<img src="key.png" alt="Click to Link" id="key-image" />
+
+<!-- JavaScript to handle the click event -->
+<script>
+    document.getElementById('key-image').onclick = function() {
+        window.location.href = 'sleep.html';
+    }
+</script>
+
+</body>
+</html>

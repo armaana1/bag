@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Party Page</title>
+  <style>
+    /* Fullscreen background for party.png */
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      width: 100vw;
+      background-image: url('party.png'); /* Set party.png as background */
+      background-size: cover; /* Cover the entire screen */
+      background-position: center; /* Center the background */
+      background-repeat: no-repeat; /* Prevent tiling */
+      position: relative; /* For positioning hbd.png */
+      overflow: hidden; /* Prevent overflow */
+    }
+
+    /* hbd.png overlay, adjusted to move more to the right */
+    .hbd-container {
+      position: absolute; /* Ensures absolute positioning */
+      top: 2%; /* Move it higher */
+      left: 40%; /* Move more to the right */
+      width: 600px; /* Increase the width to make it larger */
+      height: auto; /* Maintain aspect ratio */
+      z-index: 2;
+    }
+
+    .hbd-container a img {
+      width: 100%; /* Make the image fit within the container */
+      height: auto; /* Maintain aspect ratio */
+      cursor: pointer; /* Change the cursor to indicate it's clickable */
+    }
+  </style>
+</head>
+<body>
+  <!-- Single hbd.png overlay with link -->
+  <div class="hbd-container">
+    <a href="birthday.html">
+      <img src="hbd.png" alt="HBD Image">
+    </a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Clickable Area</title>
+  <style>
+    /* Fullscreen background for table.png */
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      width: 100vw;
+      background-image: url('table.png'); /* Set table.png as background */
+      background-size: cover; /* Cover the entire screen */
+      background-position: center; /* Center the background */
+      background-repeat: no-repeat; /* Prevent tiling */
+      position: relative; /* For positioning elements */
+      overflow: hidden; /* Prevent overflow */
+    }
+
+    /* Full.png positioned fullscreen */
+    .overlay-image {
+      display: block; /* Ensures the entire image is clickable */
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%; /* Full width of the screen */
+      height: 100%; /* Full height of the screen */
+      object-fit: cover; /* Maintain aspect ratio while covering the area */
+      cursor: pointer; /* Indicate clickability */
+    }
+  </style>
+</head>
+<body>
+  <!-- Full.png wrapped in a link to empty.html -->
+  <a href="empty.html">
+    <img src="full.png" alt="Overlay Image" class="overlay-image">
+  </a>
+</body>
+</html>
